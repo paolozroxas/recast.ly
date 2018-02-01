@@ -1,14 +1,26 @@
-var VideoListEntry = (props) => (
-  <div className="video-list-entry media">
-    <div className="media-left media-middle">
-      <img className="media-object" src={props.video.snippet.thumbnails.default.url} alt="" onClick={props.videoClickHandler} />
-    </div>
-    <div className="media-body">
-      <div className="video-list-entry-title" onClick={props.videoClickHandler} >{props.video.snippet.title}</div>
-      <div className="video-list-entry-detail">{props.video.snippet.description}</div>
-    </div>
-  </div>
-);
+class VideoListEntry extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  
+  render() {
+    return (
+      <div className="video-list-entry media">
+        <div className="media-left media-middle">
+          <img className="media-object" src={this.props.video.snippet.thumbnails.default.url} alt="" onClick={this.ownClickHandler.bind(this)} />
+        </div>
+        <div className="media-body">
+          <div className="video-list-entry-title" onClick={this.ownClickHandler.bind(this)} >{this.props.video.snippet.title}</div>
+          <div className="video-list-entry-detail">{this.props.video.snippet.description}</div>
+        </div>
+      </div>
+    );
+  }
+  
+  ownClickHandler(event) {
+    this.props.videoClickHandler(this.props.video);
+  }
+}
 
 // PropTypes tell other developers what `props` a component expects
 // Warnings will be shown in the console when the defined rules are violated

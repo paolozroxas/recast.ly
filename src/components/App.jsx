@@ -28,20 +28,17 @@ class App extends React.Component {
     this.setState({videos: data, video: data[0]});
   }
 
-  videoClickHandler(event) {
-    //find a cleaner way to get video index
-    var videoIndex = parseInt(event.dispatchMarker.charAt(12));
-    this.setState({video: this.state.videos[videoIndex]});
+  videoClickHandler(video) {
+    this.setState({video: video});
   }
   
-  searchKeyHandler(event) {
-    if (event.key === 'Enter') {
-      this.searchClickHandler(event);
-    }
-  }
-  
-  searchClickHandler(event) {
-    this.searchYoutube(document.getElementsByClassName('form-control')[0].value);
+  searchHandler(query) {
+    var options = {
+      query: query,
+      max: 5,
+      key: window.YOUTUBE_API_KEY
+    };
+    window.searchYouTube(options, this.searchYouTubeHandler.bind(this));
   }
 
   render() {
@@ -49,7 +46,7 @@ class App extends React.Component {
       <div>
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
-            <div><Search searchHandler={{click: this.searchClickHandler.bind(this), key: this.searchKeyHandler.bind(this)}}/></div>
+            <div><Search searchHandler={this.searchHandler.bind(this)}/></div>
           </div>
         </nav>
         <div className="row">
