@@ -108,3 +108,12 @@ h5 {
 .media-object:hover {
   border: 1px solid red;
 }
+
+.switch {
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}

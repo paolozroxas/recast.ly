@@ -13,13 +13,15 @@ class App extends React.Component {
     super(props);
     this.state = {
       videos: this.props.videos,
-      video: this.props.videos[0]
+      video: this.props.videos[0],
+      autoPlay: false
     };
+    this.autoPlay = false;
     this.searchYouTube = this.props.searchYouTube;
     var options = {
       query: 'rick roll',
       max: 5,
-      key: window.YOUTUBE_API_KEY
+      key: window.YOUTUBE_API_KEY,
     };
     this.searchYouTube(options, this.searchYouTubeHandler.bind(this));
   }
@@ -36,9 +38,14 @@ class App extends React.Component {
     var options = {
       query: query,
       max: 5,
-      key: window.YOUTUBE_API_KEY
+      key: window.YOUTUBE_API_KEY,
     };
     window.searchYouTube(options, this.searchYouTubeHandler.bind(this));
+  }
+  
+  autoPlayHandler() {
+    this.setState({autoPlay: !this.state.autoPlay});
+    console.log(this.state.autoPlay);
   }
 
   render() {
@@ -48,10 +55,14 @@ class App extends React.Component {
           <div className="col-md-6 offset-md-3">
             <div><Search searchHandler={this.searchHandler.bind(this)}/></div>
           </div>
+          <span>
+          Autoplay:
+            <input className="switch" type="checkbox" onChange={this.autoPlayHandler.bind(this)} />
+          </span>
         </nav>
         <div className="row">
           <div className="col-md-7">
-            <div><VideoPlayer video={this.state.video}/></div>
+            <div><VideoPlayer video={this.state.video} autoPlay={this.state.autoPlay} /></div>
           </div>
           <div className="col-md-5">
             <div><VideoList videos={this.state.videos} videoClickHandler={this.videoClickHandler.bind(this)} /></div>
