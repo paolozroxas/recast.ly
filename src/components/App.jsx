@@ -15,17 +15,17 @@ class App extends React.Component {
       videos: this.props.videos,
       video: this.props.videos[0]
     };
+    this.searchYouTube = this.props.searchYouTube;
+    var options = {
+      query: 'rick roll',
+      max: 5,
+      key: window.YOUTUBE_API_KEY
+    };
+    this.searchYouTube(options, this.searchYouTubeHandler.bind(this));
   }
   
-  searchYoutube(q) {
-    q = q.split(' ').join('+');
-    var baseURL = 'https://www.googleapis.com/youtube/v3';
-    fetch(`${baseURL}/search?part=snippet&q=${q}&type=video&maxResults=5&videoEmbeddable=true&key=${window.YOUTUBE_API_KEY}`)
-      .then((data) => data.json())
-      .then((data) => {
-        this.setState({videos: data.items});
-        this.setState({video: data.items[0]});
-    });
+  searchYouTubeHandler(data) {
+    this.setState({videos: data, video: data[0]});
   }
 
   videoClickHandler(event) {
@@ -41,7 +41,7 @@ class App extends React.Component {
   }
   
   searchClickHandler(event) {
-    this.searchYoutube($('.form-control').val());
+    this.searchYoutube(document.getElementsByClassName('form-control')[0].value);
   }
 
   render() {
@@ -68,4 +68,17 @@ class App extends React.Component {
 
 // In the ES6 spec, files are "modules" and do not share a top-level scope
 // `var` declarations will only exist globally where explicitly defined
-ReactDOM.render(<App videos={window.exampleVideoData}/>, document.getElementById('app'));
+ReactDOM.render(<App videos={[{
+  id: {
+    videoId: '000001'
+  },
+  snippet: {
+    title: 'Loading...',
+    description: 'Loading...',
+    thumbnails: {
+      default: {
+        url: '',
+      }
+    }
+  }
+}]} searchYouTube={window.searchYouTube} />, document.getElementById('app'));
