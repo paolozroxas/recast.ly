@@ -9,6 +9,7 @@ var searchYouTube = (options, callback) => {
   fetch(`${baseURL}/search?part=snippet&q=${q}&type=video&maxResults=${options.max}&videoEmbeddable=true&key=${options.key}`)
     .then((data) => data.json())
     .then((data) => {
+      console.log(data.items);
       callback(data.items);
     });
 };

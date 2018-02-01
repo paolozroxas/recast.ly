@@ -23,7 +23,7 @@ class App extends React.Component {
   componentDidMount() {
     var options = {
       query: 'rick roll',
-      max: 5,
+      max: 15,
       key: window.YOUTUBE_API_KEY,
     };
     this.searchYouTube(options, this.searchYouTubeHandler.bind(this));
@@ -40,7 +40,7 @@ class App extends React.Component {
   searchHandler(query) {
     var options = {
       query: query,
-      max: 5,
+      max: 15,
       key: window.YOUTUBE_API_KEY,
     };
     window.searchYouTube(options, this.searchYouTubeHandler.bind(this));
