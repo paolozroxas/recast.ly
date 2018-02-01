@@ -18,6 +18,9 @@ class App extends React.Component {
     };
     this.autoPlay = false;
     this.searchYouTube = this.props.searchYouTube;
+  }
+  
+  componentDidMount() {
     var options = {
       query: 'rick roll',
       max: 5,
