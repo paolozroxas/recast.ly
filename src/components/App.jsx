@@ -8,12 +8,19 @@ class App extends React.Component {
     };
   }
 
+  videoClickHandler(event) {
+    //find a cleaner way to get video index
+    var videoIndex = parseInt(event.dispatchMarker.charAt(12));
+    this.setState({video: this.state.videos[videoIndex]});
+    
+  }
+
   render() {
     return (
       <div>
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
-            <div><Search />></div>
+            <div><Search /></div>
           </div>
         </nav>
         <div className="row">
@@ -21,7 +28,7 @@ class App extends React.Component {
             <div><VideoPlayer video={this.state.video}/></div>
           </div>
           <div className="col-md-5">
-            <div><VideoList videos={this.state.videos} /></div>
+            <div><VideoList videos={this.state.videos} videoClickHandler={this.videoClickHandler.bind(this)} /></div>
           </div>
         </div>
       </div>

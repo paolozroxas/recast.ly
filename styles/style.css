@@ -99,3 +99,12 @@ h5 {
     margin-right: 20px;
   }
 }
+
+.media-object {
+  cursor: pointer;
+  border: 1px solid white;
+}
+
+.media-object:hover {
+  border: 1px solid red;
+}
