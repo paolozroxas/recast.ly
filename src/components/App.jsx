@@ -1,4 +1,13 @@
 class App extends React.Component {
+  
+  // data: {
+  //       q: keyword,
+  //       key: window.YOUTUBE_API_KEY,
+  //       type: 'video',
+  //       part: 'snippet',
+  //       maxResults: 5,
+  //       videoEmbeddable: true
+  //     }
 
   constructor(props) {
     super(props);
@@ -7,12 +16,32 @@ class App extends React.Component {
       video: this.props.videos[0]
     };
   }
+  
+  searchYoutube(q) {
+    q = q.split(' ').join('+');
+    var baseURL = 'https://www.googleapis.com/youtube/v3';
+    fetch(`${baseURL}/search?part=snippet&q=${q}&type=video&maxResults=5&videoEmbeddable=true&key=${window.YOUTUBE_API_KEY}`)
+      .then((data) => data.json())
+      .then((data) => {
+        this.setState({videos: data.items});
+        this.setState({video: data.items[0]});
+    });
+  }
 
   videoClickHandler(event) {
     //find a cleaner way to get video index
     var videoIndex = parseInt(event.dispatchMarker.charAt(12));
     this.setState({video: this.state.videos[videoIndex]});
-    
+  }
+  
+  searchKeyHandler(event) {
+    if (event.key === 'Enter') {
+      this.searchClickHandler(event);
+    }
+  }
+  
+  searchClickHandler(event) {
+    this.searchYoutube($('.form-control').val());
   }
 
   render() {
@@ -20,7 +49,7 @@ class App extends React.Component {
       <div>
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
-            <div><Search /></div>
+            <div><Search searchHandler={{click: this.searchClickHandler.bind(this), key: this.searchKeyHandler.bind(this)}}/></div>
           </div>
         </nav>
         <div className="row">
