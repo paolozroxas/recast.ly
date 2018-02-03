@@ -125,3 +125,43 @@ h5 {
   width: 30px;
   float: right;
 }
+
+.chat {
+  background-color: white;
+  margin-top: 20px;
+}
+
+.msg-bar {
+  width: 90%;
+}
+
+.msg-btn {
+  width: 10%;
+  background-color: #af0000;
+  color: white;
+  border: 1px solid white;
+  cursor: pointer;
+}
+
+.msg-btn:hover{
+  border:1px solid #0a61cc;
+}
+
+.msg {
+  padding: 10px;
+  border-bottom: .25px solid #e5e5e5;
+}
+
+.msg-user {
+  font-weight: bold;
+  color: #0a61cc;
+}
+
+.msg-text {
+  padding-left: 10px;
+}
+
+.msg-feed {
+  height: 300px;
+  overflow: scroll;
+}
